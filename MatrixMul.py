@@ -4,11 +4,18 @@ import numpy as np
 root = tk.Tk()
 root.title("Matrix Multiplication")
 
-fr1 = tk.LabelFrame(root,text = "Matrix 1")
+fr1 = tk.LabelFrame(root,text = "Matrix 1",padx = 5,pady = 5)
 fr1.grid(row = 0, column = 0)
 
 matrix_first = None
 matrix_second = None
+
+def delete():
+    global res,afis
+    res.destroy()
+    res = tk.LabelFrame(root, text="Matricea rezultata",padx = 5,pady = 5)
+    res.grid(row=2, column=1)
+    afis.configure(text = "")
 
 def ver(h):
     if set(h) <= {'0','1','2','3','4','5','6','7','8','9'} and set(h):
@@ -19,7 +26,7 @@ class mat:
     def __init__(self, nr1,nr2,loc):
         self.__columns = nr2
         self.__rows = nr1
-        self.__mat = [[tk.Entry(loc) for i in range(self.__columns)] for i in range(self.__rows)]
+        self.__mat = [[tk.Entry(loc,justify='center') for i in range(self.__columns)] for i in range(self.__rows)]
         for i in range(self.__rows):
             for j in range(self.__columns):
                 self.__mat[i][j].grid(row = i,column = j)
@@ -58,51 +65,59 @@ def generate2():
             matrix_second = mat(val1,val2,Mat2)
 
 def fd1():
-    global Mat1
+    global Mat1, matrix_first
+    matrix_first =None
+    delete()
     rows1.configure(state="normal")
     columns1.configure(state="normal")
     Mat1.destroy()
-    Mat1 = tk.LabelFrame(fr1, borderwidth=1, text="Matrix Show")
-    Mat1.grid(row=2, column=1)
+    Mat1 = tk.LabelFrame(fr1, borderwidth=1, text="Matrix Show",padx = 5,pady = 5)
+    Mat1.grid(row=3, column=1)
 
 def fd2():
-    global Mat2
+    global Mat2, matrix_second
+    matrix_second = None
+    delete()
     rows2.configure(state="normal")
     columns2.configure(state="normal")
     Mat2.destroy()
-    Mat2 = tk.LabelFrame(fr2, borderwidth=1, text="Matrix Show")
-    Mat2.grid(row=2, column=1)
+    Mat2 = tk.LabelFrame(fr2, borderwidth=1, text="Matrix Show",padx = 5,pady = 5)
+    Mat2.grid(row=3, column=1)
 
-rows1= tk.Entry(fr1, borderwidth = 1)
-rows1.grid(row = 0, column = 0)
-columns1 = tk.Entry(fr1, borderwidth = 1)
-columns1.grid(row = 0, column = 2)
+tk.Label(fr1,text = "ROWS").grid(row = 0,column = 0)
+tk.Label(fr1,text = "COLUMNS").grid(row = 0,column = 2)
+rows1= tk.Entry(fr1, borderwidth = 1,justify='center')
+rows1.grid(row = 1, column = 0)
+columns1 = tk.Entry(fr1, borderwidth = 1,justify='center')
+columns1.grid(row = 1, column = 2)
 d1 = tk.Button(fr1, text = "Destory", command = fd1)
-d1.grid(row = 0, column = 1)
+d1.grid(row = 1, column = 1)
 b1 = tk.Button(fr1, text = "Generate",command = generate1)
-b1.grid(row = 1, column = 1)
-Mat1 = tk.LabelFrame(fr1, borderwidth = 1, text = "Matrix Show")
-Mat1.grid(row=2,column = 1)
+b1.grid(row = 2, column = 1)
+Mat1 = tk.LabelFrame(fr1, borderwidth = 1, text = "Matrix Show",padx = 5,pady = 5)
+Mat1.grid(row=3,column = 1)
 
-fr2 = tk.LabelFrame(root, text = "Matrix 2")
+fr2 = tk.LabelFrame(root, text = "Matrix 2",padx = 5,pady = 5)
 fr2.grid(row = 0, column = 2)
 
-rows2= tk.Entry(fr2, borderwidth = 1)
-rows2.grid(row = 0, column = 0)
-columns2 = tk.Entry(fr2, borderwidth = 1)
-columns2.grid(row = 0, column = 2)
+tk.Label(fr2,text = "ROWS").grid(row = 0,column = 0)
+tk.Label(fr2,text = "COLUMNS").grid(row = 0,column = 2)
+rows2= tk.Entry(fr2, borderwidth = 1,justify='center')
+rows2.grid(row = 1, column = 0)
+columns2 = tk.Entry(fr2, borderwidth = 1,justify='center')
+columns2.grid(row = 1, column = 2)
 d2 = tk.Button(fr2, text = "Destory", command = fd2)
-d2.grid(row = 0, column = 1)
+d2.grid(row = 1, column = 1)
 b2 = tk.Button(fr2, text = "Generate", command = generate2)
-b2.grid(row = 1, column = 1)
-Mat2 = tk.LabelFrame(fr2, borderwidth = 1, text = "Matrix Show")
-Mat2.grid(row=2,column = 1)
+b2.grid(row = 2, column = 1)
+Mat2 = tk.LabelFrame(fr2, borderwidth = 1, text = "Matrix Show",padx = 5,pady = 5)
+Mat2.grid(row=3,column = 1)
 
 class afisare:
     def __init__(self, linii,coloane,matrice):
         self.__columns = coloane
         self.__rows = linii
-        self.__mat = [[tk.Entry(res) for i in range(self.__columns)] for i in range(self.__rows)]
+        self.__mat = [[tk.Entry(res,justify='center') for i in range(self.__columns)] for i in range(self.__rows)]
         for i in range(self.__rows):
             for j in range(self.__columns):
                 self.__mat[i][j].insert(0,str(matrice[i][j]))
@@ -118,7 +133,7 @@ def f():
             a = matrix_first.matrix()
             b = matrix_second.matrix()
             for i in range(matrix_first.rows()):
-                for j in range(matrix_second.columns()):
+                for j in range(matrix_first.columns()):
                     if not ver(a[i][j]):
                         ok1 = False
             for i in range(matrix_second.rows()):
@@ -127,7 +142,7 @@ def f():
                         ok2 = False
             if ok1 and ok2:
                 res.destroy()
-                res = tk.LabelFrame(root, text="Matricea rezultata")
+                res = tk.LabelFrame(root, text="Matricea rezultata",padx = 5,pady = 5)
                 res.grid(row=2, column=1)
                 afis.configure(text = "")
                 a = [[int(a[i][j]) for j in range(matrix_first.columns())] for i in range(matrix_first.rows())]
@@ -139,36 +154,30 @@ def f():
 
             else:
                 res.destroy()
-                res = tk.LabelFrame(root, text="Matricea rezultata")
+                res = tk.LabelFrame(root, text="Matricea rezultata",padx = 5,pady = 5)
                 res.grid(row=2, column=1)
                 afis.configure(text = "Imposibil")
         else:
             res.destroy()
-            res = tk.LabelFrame(root, text="Matricea rezultata")
+            res = tk.LabelFrame(root, text="Matricea rezultata",padx = 5,pady = 5)
             res.grid(row=2, column=1)
             afis.configure(text = "Imposibil")
 
     else:
         res.destroy()
-        res = tk.LabelFrame(root, text="Matricea rezultata")
+        res = tk.LabelFrame(root, text="Matricea rezultata",padx = 5,pady = 5)
         res.grid(row=2, column=1)
         afis.configure(text = "Imposibil")
 
 b = tk.Button(root, text = " Calcul ", command = f)
 b.grid(row = 1, column = 1)
 
-res = tk.LabelFrame(root, text = "Matricea rezultata")
+res = tk.LabelFrame(root, text = "Matricea rezultata",padx = 5,pady = 5)
 res.grid(row = 2,column = 1)
 
 afis = tk.Label(root, text = "")
 afis.grid(row = 3, column = 1)
 
-def delete():
-    global res,afis
-    res.destroy()
-    res = tk.LabelFrame(root, text="Matricea rezultata")
-    res.grid(row=2, column=1)
-    afis.configure(text = "")
 
 clear = tk.Button(root, text = "Clear", command = delete)
 clear.grid(row = 0, column = 1)
