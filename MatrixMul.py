@@ -5,7 +5,7 @@ root = tk.Tk()
 root.title("Matrix Multiplication")
 
 fr1 = tk.LabelFrame(root,text = "Matrix 1",padx = 5,pady = 5)
-fr1.grid(row = 0, column = 0)
+fr1.grid(row = 0, column = 0, padx = 5, pady = 5)
 
 matrix_first = None
 matrix_second = None
@@ -98,7 +98,7 @@ Mat1 = tk.LabelFrame(fr1, borderwidth = 1, text = "Matrix Show",padx = 5,pady = 
 Mat1.grid(row=3,column = 1)
 
 fr2 = tk.LabelFrame(root, text = "Matrix 2",padx = 5,pady = 5)
-fr2.grid(row = 0, column = 2)
+fr2.grid(row = 0, column = 2,padx = 5, pady = 5)
 
 tk.Label(fr2,text = "ROWS").grid(row = 0,column = 0)
 tk.Label(fr2,text = "COLUMNS").grid(row = 0,column = 2)
